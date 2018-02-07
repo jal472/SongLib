@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ListView?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainController">
+   <children>
+   	<!-- TODO Add Nodes -->
+   	<ListView fx:id="listView" layoutX="10.0" layoutY="13.0" prefHeight="383.0" prefWidth="280.0" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <VBox layoutX="3.0" layoutY="388.0" prefHeight="126.0" prefWidth="280.0" spacing="10.0" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="388.0">
+         <children>
+            <Label text="Song Name:" />
+            <TextField />
+            <Label text="Artist Name:" />
+            <TextField />
+            <Label text="Album Name:" />
+            <TextField />
+            <Label text="Year:" />
+            <TextField />
+         </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <StackPane layoutX="6.0" layoutY="632.0" prefHeight="49.0" prefWidth="280.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <Button mnemonicParsing="false" text="Add Song" />
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </StackPane>
+   </children>
+</AnchorPane>
