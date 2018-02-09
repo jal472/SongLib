@@ -14,13 +14,13 @@
       <VBox layoutX="3.0" layoutY="388.0" prefHeight="126.0" prefWidth="280.0" spacing="10.0" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="388.0">
          <children>
             <Label text="Song Name:" />
-            <TextField />
+            <TextField fx:id="nameTextField" />
             <Label text="Artist Name:" />
-            <TextField />
+            <TextField fx:id="artistTextField" />
             <Label text="Album Name:" />
-            <TextField />
+            <TextField fx:id="albumTextField" />
             <Label text="Year:" />
-            <TextField />
+            <TextField fx:id="yearTextField" />
          </children>
          <padding>
             <Insets bottom="5.0" top="5.0" />
@@ -28,7 +28,7 @@
       </VBox>
       <StackPane layoutX="6.0" layoutY="632.0" prefHeight="49.0" prefWidth="280.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Add Song" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSong" text="Add Song" />
          </children>
          <padding>
             <Insets top="5.0" />
