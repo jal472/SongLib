@@ -28,7 +28,7 @@
       </VBox>
       <StackPane layoutX="6.0" layoutY="632.0" prefHeight="49.0" prefWidth="280.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSong" onMouseClicked="#rightClick" text="Add Song" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSong" onContextMenuRequested="#contextMenuEvent" text="Add Song" />
          </children>
          <padding>
             <Insets top="5.0" />

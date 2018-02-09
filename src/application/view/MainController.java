@@ -7,12 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -74,16 +71,26 @@ public class MainController {
 			alert.showAndWait();
 		}else{
 			Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
+			//TODO: add song to the list and sort
 			System.out.println("button clicked");
 		}
 	}
 
 	// Right click event -- possible use case for right clicking on a song to either edit or delete it
-	public void rightClick(MouseEvent event){
-		MouseButton button  = event.getButton();
-		if(button==MouseButton.SECONDARY){
-			System.out.println("right button clicked");
-		}
+//	public void rightClick(MouseEvent event){
+//		MouseButton button  = event.getButton();
+//		if(button==MouseButton.SECONDARY){
+//			System.out.println("right button clicked");
+//		}
+//	}
+	public void contextMenuEvent(ContextMenuEvent event){
+		//testing context menu for right clicking on a song
+		//Menu item choices
+		MenuItem editSong = new MenuItem("Edit");
+		MenuItem deleteSong = new MenuItem("Delete");
+		ContextMenu rightClickMenu = new ContextMenu();
+		rightClickMenu.getItems().addAll(editSong,deleteSong);
+		rightClickMenu.show(addButton,event.getScreenX(),event.getScreenY());
 	}
 	
 }
