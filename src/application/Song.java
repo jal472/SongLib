@@ -6,12 +6,12 @@ public class Song {
 	String album;
 	String year;
 	
-	//Constructor Default sets all to empty strings
-	public Song () {
-		this.name = "";
-		this.artist = "";
-		this.album = "";
-		this.year = "";
+	//Constructor
+	public Song (String name, String artist, String album, String year) {
+		this.name = name;
+		this.artist = artist;
+		this.album = album;
+		this.year = year;
 	}
 	
 	//Getters
