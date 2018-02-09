@@ -13,6 +13,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -73,6 +75,14 @@ public class MainController {
 		}else{
 			Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
 			System.out.println("button clicked");
+		}
+	}
+
+	// Right click event -- possible use case for right clicking on a song to either edit or delete it
+	public void rightClick(MouseEvent event){
+		MouseButton button  = event.getButton();
+		if(button==MouseButton.SECONDARY){
+			System.out.println("right button clicked");
 		}
 	}
 	
