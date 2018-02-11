@@ -38,8 +38,8 @@ public class MainController {
 		obsList = FXCollections.observableArrayList();
 		obsList.add(new Song("spice","girls","vol1","1999"));
 //		songTable.setItems(obsList);
-		songTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("songName"));
-		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artistName"));
+		songTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("name"));
+		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artist"));
 		songTable.setItems(obsList);
 		//		// select the first item
 		songTable.getSelectionModel().selectFirst();

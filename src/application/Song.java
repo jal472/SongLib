@@ -1,7 +1,7 @@
 package application;
 
 import javafx.beans.property.SimpleStringProperty;
-import sun.java2d.pipe.SpanShapeRenderer;
+import javafx.beans.property.StringProperty;
 
 public class Song {
 	private SimpleStringProperty name;
@@ -43,5 +43,17 @@ public class Song {
 	}
 	public void setYear (String setYear) {
 		year.set(setYear);
+	}
+	public StringProperty nameProperty(){
+		return name;
+	}
+	public StringProperty artistProperty(){
+		return artist;
+	}
+	public StringProperty albumProperty(){
+		return album;
+	}
+	public StringProperty yearProperty(){
+		return year;
 	}
 }

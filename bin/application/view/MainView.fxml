@@ -7,32 +7,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.ListView?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainController">
    <children>
-   	<!-- TODO Add Nodes -->
-   	<ListView fx:id="listView" layoutX="10.0" layoutY="13.0" prefHeight="383.0" prefWidth="280.0" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <VBox layoutX="3.0" layoutY="388.0" prefHeight="126.0" prefWidth="280.0" spacing="10.0" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="388.0">
-         <children>
-            <Label text="Song Name:" />
-            <TextField fx:id="nameTextField" />
-            <Label text="Artist Name:" />
-            <TextField fx:id="artistTextField" />
-            <Label text="Album Name:" />
-            <TextField fx:id="albumTextField" />
-            <Label text="Year:" />
-            <TextField fx:id="yearTextField" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <StackPane layoutX="6.0" layoutY="632.0" prefHeight="49.0" prefWidth="280.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-         <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSong" onContextMenuRequested="#contextMenuEvent" text="Add Song" />
-         </children>
+      <StackPane layoutX="6.0" layoutY="632.0" prefHeight="0.0" prefWidth="553.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <padding>
             <Insets top="5.0" />
          </padding>
       </StackPane>
+      <TitledPane animated="false" layoutX="283.0" layoutY="10.0" prefHeight="212.0" prefWidth="278.0" text="Details">
+        <content>
+          <AnchorPane id="detailsBox" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView id="detailsListView" fx:id="detailsListView" layoutX="2.0" layoutY="-8.0" prefHeight="190.0" prefWidth="271.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <TableView id="songTable" fx:id="songTable" layoutX="6.0" layoutY="10.0" prefHeight="441.0" prefWidth="271.0">
+        <columns>
+          <TableColumn id="songTableColumn" fx:id="songTableColumn" editable="false" prefWidth="126.0" sortable="false" text="Song" />
+          <TableColumn id="artistTableColumn" fx:id="artistTableColumn" editable="false" prefWidth="127.0" sortable="false" text="Artist" />
+        </columns>
+      </TableView>
+      <VBox layoutX="282.0" layoutY="232.0" prefHeight="190.0" prefWidth="284.0">
+         <children>
+            <Label text="Song Name" />
+            <TextField fx:id="nameTextField" />
+            <Label text="Artist Name" />
+            <TextField fx:id="artistTextField" />
+            <Label text="Album Name" />
+            <TextField fx:id="albumTextField" />
+            <Label text="Year" />
+            <TextField fx:id="yearTextField" />
+         </children>
+      </VBox>
+      <Button fx:id="addButton" layoutX="282.0" layoutY="422.0" mnemonicParsing="false" onAction="#addSong" onContextMenuRequested="#contextMenuEvent" prefHeight="27.0" prefWidth="284.0" text="Add Song" />
    </children>
 </AnchorPane>
