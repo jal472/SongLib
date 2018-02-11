@@ -23,7 +23,7 @@ public class MainController {
 	@FXML
 	VBox detailsBox;
 	@FXML
-	Button addButton;
+	Button addButton, editButton, deleteButton;
 	@FXML
 	TextField nameTextField, artistTextField, albumTextField, yearTextField;
 
@@ -130,8 +130,11 @@ public class MainController {
 			}else{
 				//The user's song is both valid and not a duplicate at this point
 				//add song to the observable list
+				//add it to the list
 				obsList.add(newSong);
+				//sort the songs by song first then artist (see comparable method in song class)
 				FXCollections.sort(obsList);
+				//select the newly added song
 				songTable.getSelectionModel().select(newSong);
 				//clear all fields after the song is added so we can start fresh
 				clearFields();

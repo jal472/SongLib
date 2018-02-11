@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.ListView?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainController">
    <children>
       <StackPane layoutX="6.0" layoutY="632.0" prefHeight="0.0" prefWidth="553.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <padding>
@@ -23,7 +23,7 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TableView id="songTable" fx:id="songTable" layoutX="6.0" layoutY="10.0" prefHeight="441.0" prefWidth="271.0">
+      <TableView id="songTable" fx:id="songTable" layoutX="6.0" layoutY="10.0" prefHeight="400.0" prefWidth="271.0">
         <columns>
           <TableColumn id="songTableColumn" fx:id="songTableColumn" editable="false" prefWidth="126.0" sortable="false" text="Song" />
           <TableColumn id="artistTableColumn" fx:id="artistTableColumn" editable="false" prefWidth="127.0" sortable="false" text="Artist" />
@@ -41,6 +41,24 @@
             <TextField fx:id="yearTextField" />
          </children>
       </VBox>
-      <Button fx:id="addButton" layoutX="282.0" layoutY="422.0" mnemonicParsing="false" onAction="#addSong" onContextMenuRequested="#contextMenuEvent" prefHeight="27.0" prefWidth="284.0" text="Add Song" />
+      <HBox layoutX="10.0" layoutY="422.0" prefHeight="19.0" prefWidth="553.0">
+         <children>
+            <Button fx:id="deleteButton" mnemonicParsing="false" prefWidth="150.0" text="Delete Song">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="editButton" mnemonicParsing="false" prefWidth="150.0" text="Edit Song">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSong" onContextMenuRequested="#contextMenuEvent" prefHeight="27.0" prefWidth="150.0" text="Add Song">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
