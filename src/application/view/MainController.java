@@ -14,13 +14,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainController {
 	
 	private ObservableList<Song> obsList;
 	@FXML
-	ListView<String> detailsListView;
+	VBox detailsBox;
 	@FXML
 	Button addButton;
 	@FXML
@@ -35,13 +36,48 @@ public class MainController {
 	TableColumn<Song,String> artistTableColumn;
 
 	public void start(Stage primaryStage) {
+
+		//initialize the observable list
 		obsList = FXCollections.observableArrayList();
-//		obsList.add(new Song("spice","girls","vol1","1999"));
+
+		//add property values to the columns in the table view
 		songTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("name"));
 		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artist"));
+
+		//set the items of the table view to the observable list
 		songTable.setItems(obsList);
-		//		// select the first item
+
+		// select the first item by default at start of application
 		songTable.getSelectionModel().selectFirst();
+
+		//add listeners to each row so we know when a specific row is selected
+		//this will allow us to update the details window with the song properties
+		songTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				//print out the song name for now for testing purposes
+				//grab the values of the selected song to add to the details window
+				String nameDetail = "Name: "+newSelection.getName();
+				String artistDetail = "Artist: "+newSelection.getArtist();
+				String albumDetail = "Album: "+newSelection.getAlbum();
+				String yearDetail = "Year: "+newSelection.getYear();
+
+				Label nameLabel = new Label(nameDetail);
+				Label artistLabel = new Label(artistDetail);
+				Label albumLabel = new Label(albumDetail);
+				Label yearLabel = new Label(yearDetail);
+				//clear the details from any other song that were there before
+				detailsBox.getChildren().clear();
+				//add the new details from the song that is now selected
+				detailsBox.getChildren().addAll(nameLabel,artistLabel);
+				if(newSelection.getAlbum().length()>0){
+					detailsBox.getChildren().addAll(albumLabel);
+				}
+				if(newSelection.getYear().length()>0){
+					detailsBox.getChildren().addAll(yearLabel);
+				}
+				System.out.println(newSelection.getAlbum());
+			}
+		});
 
 
 		
@@ -96,7 +132,6 @@ public class MainController {
 				//add song to the observable list
 				obsList.add(newSong);
 				FXCollections.sort(obsList);
-				//TODO: implement the sort comparator for the observable list
 				//clear all fields after the song is added so we can start fresh
 				clearFields();
 				System.out.println("button clicked");
