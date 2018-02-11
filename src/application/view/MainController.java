@@ -36,8 +36,7 @@ public class MainController {
 
 	public void start(Stage primaryStage) {
 		obsList = FXCollections.observableArrayList();
-		obsList.add(new Song("spice","girls","vol1","1999"));
-//		songTable.setItems(obsList);
+//		obsList.add(new Song("spice","girls","vol1","1999"));
 		songTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("name"));
 		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artist"));
 		songTable.setItems(obsList);
@@ -85,10 +84,40 @@ public class MainController {
 			alert.showAndWait();
 		}else{
 			Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
-			//TODO: add song to the list and sort
-			obsList.add(newSong);
-			System.out.println("button clicked");
+			//check for duplicate and signal alert window
+			if(isDuplicate(newSong)){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Duplicate");
+				alert.setHeaderText(null);
+				alert.setContentText("The song you are trying to add already exists!");
+				alert.showAndWait();
+			}else{
+				//The user's song is both valid and not a duplicate at this point
+				//add song to the observable list
+				obsList.add(newSong);
+				FXCollections.sort(obsList);
+				//TODO: implement the sort comparator for the observable list
+				//clear all fields after the song is added so we can start fresh
+				clearFields();
+				System.out.println("button clicked");
+			}
 		}
+	}
+	public void clearFields(){
+		nameTextField.clear();
+		artistTextField.clear();
+		albumTextField.clear();
+		yearTextField.clear();
+	}
+
+	public boolean isDuplicate(Song songToBeAdded){
+		for(int i = 0;i<obsList.size();i++){
+			Song temp = obsList.get(i);
+			if(temp.getName().toLowerCase().equals(songToBeAdded.getName().toLowerCase())
+							&&
+							temp.getArtist().toLowerCase().equals(songToBeAdded.getArtist().toLowerCase())){ return true; }
+		}
+		return false;
 	}
 
 	// Right click event -- possible use case for right clicking on a song to either edit or delete it

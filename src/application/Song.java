@@ -3,7 +3,7 @@ package application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Song {
+public class Song implements Comparable<Song> {
 	private SimpleStringProperty name;
 	private SimpleStringProperty artist;
 	private SimpleStringProperty album;
@@ -55,5 +55,11 @@ public class Song {
 	}
 	public StringProperty yearProperty(){
 		return year;
+	}
+
+	public int compareTo(Song o){
+		String song1Full = this.getName().toLowerCase()+this.getArtist().toLowerCase();
+		String song2Full = o.getName().toLowerCase()+o.getArtist().toLowerCase();
+		return song1Full.compareTo(song2Full);
 	}
 }
