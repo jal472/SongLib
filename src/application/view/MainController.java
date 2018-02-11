@@ -132,6 +132,7 @@ public class MainController {
 				//add song to the observable list
 				obsList.add(newSong);
 				FXCollections.sort(obsList);
+				songTable.getSelectionModel().select(newSong);
 				//clear all fields after the song is added so we can start fresh
 				clearFields();
 				System.out.println("button clicked");
