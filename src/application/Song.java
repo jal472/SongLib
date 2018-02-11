@@ -1,44 +1,47 @@
 package application;
 
+import javafx.beans.property.SimpleStringProperty;
+import sun.java2d.pipe.SpanShapeRenderer;
+
 public class Song {
-	String name;
-	String artist;
-	String album;
-	String year;
+	private SimpleStringProperty name;
+	private SimpleStringProperty artist;
+	private SimpleStringProperty album;
+	private SimpleStringProperty year;
 	
 	//Constructor
 	public Song (String name, String artist, String album, String year) {
-		this.name = name;
-		this.artist = artist;
-		this.album = album;
-		this.year = year;
+		this.name = new SimpleStringProperty(name);
+		this.artist = new SimpleStringProperty(artist);
+		this.album = new SimpleStringProperty(album);
+		this.year = new SimpleStringProperty(year);
 	}
 	
 	//Getters
 	public String getName() {
-		return this.name;
+		return name.get();
 	}
 	public String getArtist() {
-		return this.artist;
+		return artist.get();
 	}
 	public String getAlbum() {
-		return this.album;
+		return album.get();
 	}
 	public String getYear() {
-		return this.year;
+		return year.get();
 	}
 	
 	//Setters
-	public void setName (String name) {
-		this.name = name;
+	public void setName (String setName) {
+		name.set(setName);
 	}
-	public void setArtist (String artist) {
-		this.artist = artist;
+	public void setArtist (String setArtist) {
+		artist.set(setArtist);
 	}
-	public void setAlbum (String album) {
-		this.album = album;
+	public void setAlbum (String setAlbum) {
+		album.set(setAlbum);
 	}
-	public void setYear (String year) {
-		this.year = year;
+	public void setYear (String setYear) {
+		year.set(setYear);
 	}
 }

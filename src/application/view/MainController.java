@@ -8,29 +8,43 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class MainController {
-	@FXML         
-	ListView<Song> listView;
 	
 	private ObservableList<Song> obsList;
-	
+	@FXML
+	ListView<String> detailsListView;
 	@FXML
 	Button addButton;
 	@FXML
 	TextField nameTextField, artistTextField, albumTextField, yearTextField;
 
+	@FXML
+	TableView<Song> songTable;
+	//table columns
+	@FXML
+	TableColumn<Song,String> songTableColumn;
+	@FXML
+	TableColumn<Song,String> artistTableColumn;
+
 	public void start(Stage primaryStage) {
 		obsList = FXCollections.observableArrayList();
-		listView.setItems(obsList);
-		
-//		// select the first item
-		listView.getSelectionModel().select(0);
+		obsList.add(new Song("spice","girls","vol1","1999"));
+//		songTable.setItems(obsList);
+		songTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("songName"));
+		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artistName"));
+		songTable.setItems(obsList);
+		//		// select the first item
+		songTable.getSelectionModel().selectFirst();
+
+
 		
 //		//
 //		listView
@@ -72,6 +86,7 @@ public class MainController {
 		}else{
 			Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
 			//TODO: add song to the list and sort
+			obsList.add(newSong);
 			System.out.println("button clicked");
 		}
 	}
@@ -92,5 +107,4 @@ public class MainController {
 		rightClickMenu.getItems().addAll(editSong,deleteSong);
 		rightClickMenu.show(addButton,event.getScreenX(),event.getScreenY());
 	}
-	
 }
