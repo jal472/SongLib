@@ -17,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 public class MainController {
 	
 	private ObservableList<Song> obsList;
@@ -79,37 +81,9 @@ public class MainController {
 			}
 		});
 
-
-		
-//		//
-//		listView
-//		.getSelectionModel()
-//		.selectedIndexProperty()
-//		.addListener(
-//				(obs, oldVal, newVal) -> 
-//				//showItem(mainStage)
-//				showItemInputDialog(primaryStage)
-//				);
 	}
-	
-	//fix this for Songs
-//	public void showItemInputDialog(Stage mainStage) {                
-//		String item = listView.getSelectionModel().getSelectedItem();
-//		int index = listView.getSelectionModel().getSelectedIndex();
-//
-//		TextInputDialog dialog = new TextInputDialog(item);
-//		dialog.initOwner(mainStage); dialog.setTitle("List Item");
-//		dialog.setHeaderText("Selected Item (Index: " + index + ")");
-//		dialog.setContentText("Enter name: ");
-//
-//		Optional<String> result = dialog.showAndWait();
-//		if (result.isPresent()) { obsList.set(index, result.get()); }
-//	}
-	
-	//TODO: get button to add song to the list with the text fields
-	//		Get the song and artist to come up in the list as columns, if not.. song - artist
-	//		Get alert to come up so that we can edit the details of the songs
-	//		Make sure the items get added in alphabetical order
+
+
 	public void addSong(ActionEvent e) {
 		//make sure the user inputs at least the name and artist
 		if(nameTextField.getText().trim().isEmpty() || artistTextField.getText().trim().isEmpty()){
@@ -130,7 +104,6 @@ public class MainController {
 			}else{
 				//The user's song is both valid and not a duplicate at this point
 				//add song to the observable list
-				//add it to the list
 				obsList.add(newSong);
 				//sort the songs by song first then artist (see comparable method in song class)
 				FXCollections.sort(obsList);
@@ -141,6 +114,61 @@ public class MainController {
 				System.out.println("button clicked");
 			}
 		}
+	}
+
+	public void editButtonPressed(ActionEvent e){
+		Song selectedSong = songTable.getSelectionModel().getSelectedItem();
+		if(selectedSong==null){
+			//no song is selected
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Uh oh!");
+			alert.setHeaderText(null);
+			alert.setContentText("No song is selected for you to edit!");
+			alert.showAndWait();
+		}else{
+			//TODO: pop up a window to allow the user to edit the song information
+		}
+	}
+
+	public void deleteButtonPressed(ActionEvent e){
+		Song songToDelete = songTable.getSelectionModel().getSelectedItem();
+		if(songToDelete==null){
+			//no song is selected
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Uh oh!");
+			alert.setHeaderText(null);
+			alert.setContentText("No song is selected for you to delete!");
+			alert.showAndWait();
+		}else{
+			//TODO: ask the user if they really want to delete the song
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Delete Song");
+			alert.setContentText("Are you sure you want to delete this song?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				// user chose yes
+				int index = obsList.indexOf(songToDelete);
+				//check if the song is the last one selected
+				if(index==obsList.size()-1){
+					if(index!=0){
+						songTable.getSelectionModel().select(index-1);
+					}
+				}else{
+					songTable.getSelectionModel().select(index+1);
+				}
+
+				obsList.remove(songToDelete);
+				FXCollections.sort(obsList);
+				//if we deleted the last song we need to make sure that we get rid of whats in the
+				//details window since nothing will be selected anymore
+				if(obsList.size()==0){
+					detailsBox.getChildren().clear();
+				}
+
+			}
+
+		}
+		return;
 	}
 	public void clearFields(){
 		nameTextField.clear();
@@ -159,20 +187,4 @@ public class MainController {
 		return false;
 	}
 
-	// Right click event -- possible use case for right clicking on a song to either edit or delete it
-//	public void rightClick(MouseEvent event){
-//		MouseButton button  = event.getButton();
-//		if(button==MouseButton.SECONDARY){
-//			System.out.println("right button clicked");
-//		}
-//	}
-	public void contextMenuEvent(ContextMenuEvent event){
-		//testing context menu for right clicking on a song
-		//Menu item choices
-		MenuItem editSong = new MenuItem("Edit");
-		MenuItem deleteSong = new MenuItem("Delete");
-		ContextMenu rightClickMenu = new ContextMenu();
-		rightClickMenu.getItems().addAll(editSong,deleteSong);
-		rightClickMenu.show(addButton,event.getScreenX(),event.getScreenY());
-	}
 }
