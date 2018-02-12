@@ -45,22 +45,25 @@ public class MainController {
 		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artist"));
 
 		//read from the songdb file to populate the observable list
-
-		try{
-			BufferedReader reader = new BufferedReader(new FileReader("songdb.json"));
-			JsonParser ps = new JsonParser();
-			JsonArray array = ps.parse(reader).getAsJsonArray();
-			for(JsonElement elem:array){
-				JsonObject elemObj = elem.getAsJsonObject();
-				String songName = elemObj.getAsJsonObject("name").get("value").getAsString();
-				String songArtist = elemObj.getAsJsonObject("artist").get("value").getAsString();
-				String songAlbum = elemObj.getAsJsonObject("album").get("value").getAsString();
-				String songYear = elemObj.getAsJsonObject("year").get("value").getAsString();
-				Song insertSong = new Song(songName,songArtist,songAlbum,songYear);
-				obsList.add(insertSong);
+		File file = new File("songdb.json");
+		if(file.length()!=0) {
+			//file is not empty
+			try{
+				BufferedReader reader = new BufferedReader(new FileReader("songdb.json"));
+				JsonParser ps = new JsonParser();
+				JsonArray array = ps.parse(reader).getAsJsonArray();
+				for(JsonElement elem:array){
+					JsonObject elemObj = elem.getAsJsonObject();
+					String songName = elemObj.getAsJsonObject("name").get("value").getAsString();
+					String songArtist = elemObj.getAsJsonObject("artist").get("value").getAsString();
+					String songAlbum = elemObj.getAsJsonObject("album").get("value").getAsString();
+					String songYear = elemObj.getAsJsonObject("year").get("value").getAsString();
+					Song insertSong = new Song(songName,songArtist,songAlbum,songYear);
+					obsList.add(insertSong);
+				}
+			}catch(IOException e){
+				System.out.println(e);
 			}
-		}catch(IOException e){
-			System.out.println(e);
 		}
 
 		//set the items of the table view to the observable list
