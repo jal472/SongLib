@@ -39,6 +39,7 @@ public class MainController {
 
 	public void start(Stage primaryStage) {
 
+
 		//initialize the observable list
 		obsList = FXCollections.observableArrayList();
 
@@ -88,6 +89,8 @@ public class MainController {
 				System.out.println(newSelection.getAlbum());
 			}
 		});
+		//event fired when the user closes the application
+		primaryStage.setOnCloseRequest(event -> {System.out.println("application was closed");});
 
 	}
 
