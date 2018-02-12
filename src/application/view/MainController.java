@@ -3,6 +3,7 @@ package application.view;
 import java.util.Optional;
 
 import application.Song;
+import com.google.gson.GsonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,15 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.*;
+import java.io.*;
 
+import com.google.gson.Gson;
 public class MainController {
 	
 	private ObservableList<Song> obsList;
@@ -90,7 +88,19 @@ public class MainController {
 			}
 		});
 		//event fired when the user closes the application
-		primaryStage.setOnCloseRequest(event -> {System.out.println("application was closed");});
+		primaryStage.setOnCloseRequest(event -> {
+			try{
+				Writer fw = new FileWriter("songdb.json");
+				Gson gson = new GsonBuilder().create();
+				gson.toJson(obsList,fw);
+				fw.close();
+
+			}catch (IOException e){
+				System.out.println(e);
+			}
+
+
+		});
 
 	}
 
