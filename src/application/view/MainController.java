@@ -3,7 +3,8 @@ package application.view;
 import java.util.Optional;
 
 import application.Song;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
-import com.google.gson.Gson;
 public class MainController {
 	
 	private ObservableList<Song> obsList;
@@ -45,11 +45,27 @@ public class MainController {
 		songTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("name"));
 		artistTableColumn.setCellValueFactory(new PropertyValueFactory<Song,String>("artist"));
 
+		//read from the songdb file to populate the observable list
+
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader("songdb.json"));
+			JsonParser ps = new JsonParser();
+			JsonArray array = ps.parse(reader).getAsJsonArray();
+			for(JsonElement elem:array){
+				JsonObject elemObj = elem.getAsJsonObject();
+				String songName = elemObj.getAsJsonObject("name").get("value").getAsString();
+				String songArtist = elemObj.getAsJsonObject("artist").get("value").getAsString();
+				String songAlbum = elemObj.getAsJsonObject("album").get("value").getAsString();
+				String songYear = elemObj.getAsJsonObject("year").get("value").getAsString();
+				Song insertSong = new Song(songName,songArtist,songAlbum,songYear);
+				obsList.add(insertSong);
+			}
+		}catch(IOException e){
+			System.out.println(e);
+		}
+
 		//set the items of the table view to the observable list
 		songTable.setItems(obsList);
-
-		// select the first item by default at start of application
-		songTable.getSelectionModel().selectFirst();
 
 		//add listeners to each row so we know when a specific row is selected
 		//this will allow us to update the details window with the song properties
@@ -87,6 +103,8 @@ public class MainController {
 				System.out.println(newSelection.getAlbum());
 			}
 		});
+		// select the first item by default at start of application
+		songTable.getSelectionModel().selectFirst();
 		//event fired when the user closes the application
 		primaryStage.setOnCloseRequest(event -> {
 			try{
