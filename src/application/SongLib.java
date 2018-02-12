@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {	
+public class SongLib extends Application {
 
 	public Stage primaryStage;
 	
@@ -19,7 +19,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		primaryStage.setTitle("Song Library App");
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+		loader.setLocation(SongLib.class.getResource("view/MainView.fxml"));
 		AnchorPane mainLayout = (AnchorPane)loader.load();
 		
 		MainController listController = loader.getController();
