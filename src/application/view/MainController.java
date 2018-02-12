@@ -117,7 +117,6 @@ public class MainController {
 				System.out.println(e);
 			}
 
-
 		});
 
 	}
@@ -170,7 +169,12 @@ public class MainController {
 			return;
 		}
 		//check for no edits by user
-		if(selectedSong.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&selectedSong.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
+		if(selectedSong.getName().toLowerCase().equals(editSongName.getText().toLowerCase())
+                &&
+                selectedSong.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())
+                &&
+                selectedSong.getAlbum().toLowerCase().equals(editSongAlbum.getText().toLowerCase())
+                && selectedSong.getYear().toLowerCase().equals(editSongYear.getText().toLowerCase())){
 			return;
 		}
 		//prompt the user to see if they really want to save these changes
@@ -185,7 +189,7 @@ public class MainController {
 			boolean hasDuplicate=false;
 			for(int i = 0;i<obsList.size();i++){
 				Song temp = obsList.get(i);
-				if(!(selectedSong.getName().toLowerCase().equals(temp.getName())&&selectedSong.getArtist().toLowerCase().equals(temp.getArtist()))){
+				if(i!=obsList.indexOf(selectedSong)){
 					//check for duplicates
 					if(temp.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&temp.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
 						//duplicate found
