@@ -145,60 +145,66 @@ public class MainController {
 		if(selectedSong.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&selectedSong.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
 			return;
 		}
-		//check for duplicate entry already in the list
-		//cant use predefined isDup method we created since we need to handle this differently
-		//in case the user didnt change anything in the song
-		boolean hasDuplicate=false;
-		for(int i = 0;i<obsList.size();i++){
-			Song temp = obsList.get(i);
-			if(!(selectedSong.getName().toLowerCase().equals(temp.getName())&&selectedSong.getArtist().toLowerCase().equals(temp.getArtist()))){
-				//check for duplicates
-				if(temp.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&temp.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
-					//duplicate found
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Uh oh!");
-					alert.setHeaderText(null);
-					alert.setContentText("Your new song already exists in the list. Try again!");
-					alert.showAndWait();
-					hasDuplicate=true;
+		//prompt the user to see if they really want to save these changes
+		Alert prompt = new Alert(AlertType.CONFIRMATION);
+		prompt.setHeaderText("Edit Song");
+		prompt.setContentText("Are you sure you want to save your changes?");
+		Optional<ButtonType> result = prompt.showAndWait();
+		if (result.get() == ButtonType.OK){
+			//check for duplicate entry already in the list
+			//cant use predefined isDup method we created since we need to handle this differently
+			//in case the user didnt change anything in the song
+			boolean hasDuplicate=false;
+			for(int i = 0;i<obsList.size();i++){
+				Song temp = obsList.get(i);
+				if(!(selectedSong.getName().toLowerCase().equals(temp.getName())&&selectedSong.getArtist().toLowerCase().equals(temp.getArtist()))){
+					//check for duplicates
+					if(temp.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&temp.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
+						//duplicate found
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Uh oh!");
+						alert.setHeaderText(null);
+						alert.setContentText("Your new song already exists in the list. Try again!");
+						alert.showAndWait();
+						hasDuplicate=true;
 
+					}
 				}
 			}
-		}
-		if(!hasDuplicate){
-			//edit the song in the obslist
-			Song songToEdit = obsList.get(obsList.indexOf(selectedSong));
-			songToEdit.setName(editSongName.getText());
-			songToEdit.setArtist(editSongArtist.getText());
-			songToEdit.setAlbum(editSongAlbum.getText());
-			songToEdit.setYear(editSongYear.getText());
-			//sort the list
-			FXCollections.sort(obsList);
+			if(!hasDuplicate){
 
-			//print out the song name for now for testing purposes
-			//grab the values of the selected song to add to the details window
-			String nameDetail = "Name: "+songToEdit.getName();
-			String artistDetail = "Artist: "+songToEdit.getArtist();
-			String albumDetail = "Album: "+songToEdit.getAlbum();
-			String yearDetail = "Year: "+songToEdit.getYear();
+				//edit the song in the obslist
+				Song songToEdit = obsList.get(obsList.indexOf(selectedSong));
+				songToEdit.setName(editSongName.getText());
+				songToEdit.setArtist(editSongArtist.getText());
+				songToEdit.setAlbum(editSongAlbum.getText());
+				songToEdit.setYear(editSongYear.getText());
+				//sort the list
+				FXCollections.sort(obsList);
 
-			Label nameLabel = new Label(nameDetail);
-			Label artistLabel = new Label(artistDetail);
-			Label albumLabel = new Label(albumDetail);
-			Label yearLabel = new Label(yearDetail);
-			//clear the details from any other song that were there before
-			detailsBox.getChildren().clear();
-			//add the new details from the song that is now selected
-			detailsBox.getChildren().addAll(nameLabel,artistLabel);
-			if(songToEdit.getAlbum().length()>0){
-				detailsBox.getChildren().addAll(albumLabel);
+				//print out the song name for now for testing purposes
+				//grab the values of the selected song to add to the details window
+				String nameDetail = "Name: "+songToEdit.getName();
+				String artistDetail = "Artist: "+songToEdit.getArtist();
+				String albumDetail = "Album: "+songToEdit.getAlbum();
+				String yearDetail = "Year: "+songToEdit.getYear();
+
+				Label nameLabel = new Label(nameDetail);
+				Label artistLabel = new Label(artistDetail);
+				Label albumLabel = new Label(albumDetail);
+				Label yearLabel = new Label(yearDetail);
+				//clear the details from any other song that were there before
+				detailsBox.getChildren().clear();
+				//add the new details from the song that is now selected
+				detailsBox.getChildren().addAll(nameLabel,artistLabel);
+				if(songToEdit.getAlbum().length()>0){
+					detailsBox.getChildren().addAll(albumLabel);
+				}
+				if(songToEdit.getYear().length()>0){
+					detailsBox.getChildren().addAll(yearLabel);
+				}
+
 			}
-			if(songToEdit.getYear().length()>0){
-				detailsBox.getChildren().addAll(yearLabel);
-			}
-
-
-
 
 		}
 
