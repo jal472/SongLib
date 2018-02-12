@@ -25,7 +25,7 @@ public class MainController {
 	@FXML
 	VBox detailsBox;
 	@FXML
-	Button addButton, editButton, deleteButton,editDoneButton;
+	Button addButton,deleteButton,editDoneButton;
 	@FXML
 	TextField nameTextField, artistTextField, albumTextField, yearTextField, editSongName, editSongArtist, editSongAlbum, editSongYear;
 
@@ -124,29 +124,16 @@ public class MainController {
 		}
 	}
 
-	public void editButtonPressed(ActionEvent e){
-		Song selectedSong = songTable.getSelectionModel().getSelectedItem();
-		if(selectedSong==null){
-			//no song is selected
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Uh oh!");
-			alert.setHeaderText(null);
-			alert.setContentText("No song is selected for you to edit!");
-			alert.showAndWait();
-		}else{
-			//allow the user to edit the text fields
-			editSongName.setEditable(true);
-			editSongArtist.setEditable(true);
-			editSongAlbum.setEditable(true);
-			editSongYear.setEditable(true);
-			//focus on the text field so the user knows that the field is editable now
-			editSongName.requestFocus();
-		}
-	}
 	public void doneButtonPressed(ActionEvent e){
 		Song selectedSong = songTable.getSelectionModel().getSelectedItem();
+		//check for empty list
+		System.out.println(selectedSong.getName());
 		if(selectedSong==null){
 			//list is empty
+			return;
+		}
+		//check for no edits by user
+		if(selectedSong.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&selectedSong.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
 			return;
 		}
 		//check for duplicate entry already in the list
@@ -155,9 +142,9 @@ public class MainController {
 		boolean hasDuplicate=false;
 		for(int i = 0;i<obsList.size();i++){
 			Song temp = obsList.get(i);
-			if(!selectedSong.equals(temp)){
+			if(!(selectedSong.getName().toLowerCase().equals(temp.getName())&&selectedSong.getArtist().toLowerCase().equals(temp.getArtist()))){
 				//check for duplicates
-				if(temp.getName().equals(editSongName)&&temp.getArtist().equals(editSongArtist)){
+				if(temp.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&temp.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
 					//duplicate found
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Uh oh!");
@@ -178,12 +165,28 @@ public class MainController {
 			songToEdit.setYear(editSongYear.getText());
 			//sort the list
 			FXCollections.sort(obsList);
-			editSongName.setEditable(false);
-			editSongArtist.setEditable(false);
-			editSongAlbum.setEditable(false);
-			editSongYear.setEditable(false);
 
-			//TODO: update the details window
+			//print out the song name for now for testing purposes
+			//grab the values of the selected song to add to the details window
+			String nameDetail = "Name: "+songToEdit.getName();
+			String artistDetail = "Artist: "+songToEdit.getArtist();
+			String albumDetail = "Album: "+songToEdit.getAlbum();
+			String yearDetail = "Year: "+songToEdit.getYear();
+
+			Label nameLabel = new Label(nameDetail);
+			Label artistLabel = new Label(artistDetail);
+			Label albumLabel = new Label(albumDetail);
+			Label yearLabel = new Label(yearDetail);
+			//clear the details from any other song that were there before
+			detailsBox.getChildren().clear();
+			//add the new details from the song that is now selected
+			detailsBox.getChildren().addAll(nameLabel,artistLabel);
+			if(songToEdit.getAlbum().length()>0){
+				detailsBox.getChildren().addAll(albumLabel);
+			}
+			if(songToEdit.getYear().length()>0){
+				detailsBox.getChildren().addAll(yearLabel);
+			}
 
 
 
@@ -203,7 +206,6 @@ public class MainController {
 			alert.setContentText("No song is selected for you to delete!");
 			alert.showAndWait();
 		}else{
-			//TODO: ask the user if they really want to delete the song
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setHeaderText("Delete Song");
 			alert.setContentText("Are you sure you want to delete this song?");
@@ -224,8 +226,13 @@ public class MainController {
 				FXCollections.sort(obsList);
 				//if we deleted the last song we need to make sure that we get rid of whats in the
 				//details window since nothing will be selected anymore
+				//we also have to clear the edit fields
 				if(obsList.size()==0){
 					detailsBox.getChildren().clear();
+					editSongName.clear();
+					editSongArtist.clear();
+					editSongAlbum.clear();
+					editSongYear.clear();
 				}
 
 			}

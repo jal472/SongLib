@@ -61,23 +61,18 @@
                   <VBox layoutX="3.0" layoutY="4.0" prefHeight="209.0" prefWidth="271.0">
                      <children>
                         <Label text="Edit Song Name" />
-                        <TextField fx:id="editSongName" editable="false" />
+                        <TextField fx:id="editSongName" />
                         <Label text="Edit Song Artist" />
-                        <TextField fx:id="editSongArtist" editable="false" />
+                        <TextField fx:id="editSongArtist" />
                         <Label text="Edit Song Album" />
-                        <TextField fx:id="editSongAlbum" editable="false" />
+                        <TextField fx:id="editSongAlbum" />
                         <Label text="Edit Song Year" />
-                        <TextField fx:id="editSongYear" editable="false" />
+                        <TextField fx:id="editSongYear" />
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonPressed" prefWidth="100.0" text="Edit">
+                              <Button fx:id="editDoneButton" mnemonicParsing="false" onAction="#doneButtonPressed" prefHeight="27.0" prefWidth="273.0" text="Save Changes">
                                  <HBox.margin>
-                                    <Insets left="30.0" top="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="editDoneButton" mnemonicParsing="false" onAction="#doneButtonPressed" prefWidth="100.0" text="Done">
-                                 <HBox.margin>
-                                    <Insets left="30.0" right="30.0" top="10.0" />
+                                    <Insets top="10.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
