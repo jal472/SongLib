@@ -25,9 +25,9 @@ public class MainController {
 	@FXML
 	VBox detailsBox;
 	@FXML
-	Button addButton, editButton, deleteButton;
+	Button addButton, editButton, deleteButton,editDoneButton;
 	@FXML
-	TextField nameTextField, artistTextField, albumTextField, yearTextField;
+	TextField nameTextField, artistTextField, albumTextField, yearTextField, editSongName, editSongArtist, editSongAlbum, editSongYear;
 
 	@FXML
 	TableView<Song> songTable;
@@ -56,6 +56,14 @@ public class MainController {
 		//this will allow us to update the details window with the song properties
 		songTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
+
+				//set the text fields for the edit fields
+				editSongName.setText(newSelection.getName());
+				editSongArtist.setText(newSelection.getArtist());
+				editSongAlbum.setText(newSelection.getAlbum());
+				editSongYear.setText(newSelection.getYear());
+
+
 				//print out the song name for now for testing purposes
 				//grab the values of the selected song to add to the details window
 				String nameDetail = "Name: "+newSelection.getName();
@@ -126,11 +134,66 @@ public class MainController {
 			alert.setContentText("No song is selected for you to edit!");
 			alert.showAndWait();
 		}else{
-			//TODO: pop up a window to allow the user to edit the song information
+			//allow the user to edit the text fields
+			editSongName.setEditable(true);
+			editSongArtist.setEditable(true);
+			editSongAlbum.setEditable(true);
+			editSongYear.setEditable(true);
+			//focus on the text field so the user knows that the field is editable now
+			editSongName.requestFocus();
 		}
+	}
+	public void doneButtonPressed(ActionEvent e){
+		Song selectedSong = songTable.getSelectionModel().getSelectedItem();
+		if(selectedSong==null){
+			//list is empty
+			return;
+		}
+		//check for duplicate entry already in the list
+		//cant use predefined isDup method we created since we need to handle this differently
+		//in case the user didnt change anything in the song
+		boolean hasDuplicate=false;
+		for(int i = 0;i<obsList.size();i++){
+			Song temp = obsList.get(i);
+			if(!selectedSong.equals(temp)){
+				//check for duplicates
+				if(temp.getName().equals(editSongName)&&temp.getArtist().equals(editSongArtist)){
+					//duplicate found
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Uh oh!");
+					alert.setHeaderText(null);
+					alert.setContentText("Your new song already exists in the list. Try again!");
+					alert.showAndWait();
+					hasDuplicate=true;
+
+				}
+			}
+		}
+		if(!hasDuplicate){
+			//edit the song in the obslist
+			Song songToEdit = obsList.get(obsList.indexOf(selectedSong));
+			songToEdit.setName(editSongName.getText());
+			songToEdit.setArtist(editSongArtist.getText());
+			songToEdit.setAlbum(editSongAlbum.getText());
+			songToEdit.setYear(editSongYear.getText());
+			//sort the list
+			FXCollections.sort(obsList);
+			editSongName.setEditable(false);
+			editSongArtist.setEditable(false);
+			editSongAlbum.setEditable(false);
+			editSongYear.setEditable(false);
+
+			//TODO: update the details window
+
+
+
+
+		}
+
 	}
 
 	public void deleteButtonPressed(ActionEvent e){
+
 		Song songToDelete = songTable.getSelectionModel().getSelectedItem();
 		if(songToDelete==null){
 			//no song is selected
