@@ -104,25 +104,32 @@ public class MainController {
 			alert.setContentText("The user must enter the song name and artist name at the least to add a song to the list.");
 			alert.showAndWait();
 		}else{
-			Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
-			//check for duplicate and signal alert window
-			if(isDuplicate(newSong)){
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Duplicate");
-				alert.setHeaderText(null);
-				alert.setContentText("The song you are trying to add already exists!");
-				alert.showAndWait();
-			}else{
-				//The user's song is both valid and not a duplicate at this point
-				//add song to the observable list
-				obsList.add(newSong);
-				//sort the songs by song first then artist (see comparable method in song class)
-				FXCollections.sort(obsList);
-				//select the newly added song
-				songTable.getSelectionModel().select(newSong);
-				//clear all fields after the song is added so we can start fresh
-				clearFields();
-				System.out.println("button clicked");
+			//prompt the user if they really want to add the song
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Add Song");
+			alert.setContentText("Are you sure you want to add this song?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
+				//check for duplicate and signal alert window
+				if(isDuplicate(newSong)){
+					Alert dup = new Alert(AlertType.ERROR);
+					dup.setTitle("Duplicate");
+					dup.setHeaderText(null);
+					dup.setContentText("The song you are trying to add already exists!");
+					dup.showAndWait();
+				}else{
+					//The user's song is both valid and not a duplicate at this point
+					//add song to the observable list
+					obsList.add(newSong);
+					//sort the songs by song first then artist (see comparable method in song class)
+					FXCollections.sort(obsList);
+					//select the newly added song
+					songTable.getSelectionModel().select(newSong);
+					//clear all fields after the song is added so we can start fresh
+					clearFields();
+					System.out.println("button clicked");
+				}
 			}
 		}
 	}
