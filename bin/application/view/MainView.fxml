@@ -14,11 +14,11 @@
             <Insets top="5.0" />
          </padding>
       </StackPane>
-      <TitledPane animated="false" layoutX="283.0" layoutY="10.0" prefHeight="148.0" prefWidth="278.0" text="Details">
+      <TitledPane animated="false" layoutX="283.0" layoutY="10.0" prefHeight="148.0" prefWidth="278.0" text="Song Details">
         <content>
           <AnchorPane id="detailsBox" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <VBox fx:id="detailsBox" layoutX="-2.0" prefHeight="115.0" prefWidth="278.0" />
+                  <VBox fx:id="detailsBox" layoutX="5.0" prefHeight="115.0" prefWidth="271.0" />
                </children>
             </AnchorPane>
         </content>
@@ -29,7 +29,7 @@
           <TableColumn id="artistTableColumn" fx:id="artistTableColumn" editable="false" prefWidth="135.0" sortable="false" text="Artist" />
         </columns>
       </TableView>
-      <TitledPane animated="false" layoutX="281.0" layoutY="169.0" prefHeight="245.0" prefWidth="278.0" text="Add Song">
+      <TitledPane animated="false" layoutX="281.0" layoutY="169.0" prefHeight="245.0" prefWidth="278.0" text="Add a Song">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -54,30 +54,25 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="281.0" layoutY="421.0" prefHeight="254.0" prefWidth="278.0" text="Edit Song Details">
+      <TitledPane animated="false" layoutX="281.0" layoutY="421.0" prefHeight="254.0" prefWidth="278.0" text="Edit Selected Song">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <VBox layoutX="3.0" layoutY="4.0" prefHeight="209.0" prefWidth="271.0">
                      <children>
                         <Label text="Edit Song Name" />
-                        <TextField fx:id="editSongName" editable="false" />
+                        <TextField fx:id="editSongName" />
                         <Label text="Edit Song Artist" />
-                        <TextField fx:id="editSongArtist" editable="false" />
+                        <TextField fx:id="editSongArtist" />
                         <Label text="Edit Song Album" />
-                        <TextField fx:id="editSongAlbum" editable="false" />
+                        <TextField fx:id="editSongAlbum" />
                         <Label text="Edit Song Year" />
-                        <TextField fx:id="editSongYear" editable="false" />
+                        <TextField fx:id="editSongYear" />
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonPressed" prefWidth="100.0" text="Edit">
+                              <Button fx:id="editDoneButton" mnemonicParsing="false" onAction="#doneButtonPressed" prefHeight="27.0" prefWidth="273.0" text="Save Changes">
                                  <HBox.margin>
-                                    <Insets left="30.0" top="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="editDoneButton" mnemonicParsing="false" onAction="#doneButtonPressed" prefWidth="100.0" text="Done">
-                                 <HBox.margin>
-                                    <Insets left="30.0" right="30.0" top="10.0" />
+                                    <Insets top="10.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -88,6 +83,6 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <Button fx:id="deleteButton" layoutX="280.0" layoutY="686.0" mnemonicParsing="false" onAction="#deleteButtonPressed" prefHeight="27.0" prefWidth="278.0" text="Delete Song" />
+      <Button fx:id="deleteButton" layoutX="280.0" layoutY="686.0" mnemonicParsing="false" onAction="#deleteButtonPressed" prefHeight="27.0" prefWidth="278.0" text="Delete Selected Song" />
    </children>
 </AnchorPane>

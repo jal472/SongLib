@@ -127,7 +127,6 @@ public class MainController {
 	public void doneButtonPressed(ActionEvent e){
 		Song selectedSong = songTable.getSelectionModel().getSelectedItem();
 		//check for empty list
-		System.out.println(selectedSong.getName());
 		if(selectedSong==null){
 			//list is empty
 			return;
