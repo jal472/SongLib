@@ -193,7 +193,7 @@ public class MainController {
 				Song temp = obsList.get(i);
 				if(i!=obsList.indexOf(selectedSong)){
 					//check for duplicates
-					if(temp.getName().toLowerCase().equals(editSongName.getText().toLowerCase())&&temp.getArtist().toLowerCase().equals(editSongArtist.getText().toLowerCase())){
+					if(temp.getName().toLowerCase().equals(editSongName.getText().trim().toLowerCase())&&temp.getArtist().toLowerCase().equals(editSongArtist.getText().trim().toLowerCase())){
 						//duplicate found
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Uh oh!");
@@ -209,10 +209,10 @@ public class MainController {
 
 				//edit the song in the obslist
 				Song songToEdit = obsList.get(obsList.indexOf(selectedSong));
-				songToEdit.setName(editSongName.getText());
-				songToEdit.setArtist(editSongArtist.getText());
-				songToEdit.setAlbum(editSongAlbum.getText());
-				songToEdit.setYear(editSongYear.getText());
+				songToEdit.setName(editSongName.getText().trim());
+				songToEdit.setArtist(editSongArtist.getText().trim());
+				songToEdit.setAlbum(editSongAlbum.getText().trim());
+				songToEdit.setYear(editSongYear.getText().trim());
 				//sort the list
 				FXCollections.sort(obsList);
 
