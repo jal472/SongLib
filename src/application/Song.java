@@ -59,7 +59,9 @@ public class Song implements Comparable<Song> {
 
 	public int compareTo(Song o){
 		String song1Full = this.getName().toLowerCase()+this.getArtist().toLowerCase();
+		song1Full.replaceAll("\\s+","");
 		String song2Full = o.getName().toLowerCase()+o.getArtist().toLowerCase();
+		song2Full.replaceAll("\\s+","");
 		return song1Full.compareTo(song2Full);
 	}
 }
