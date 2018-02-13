@@ -139,7 +139,7 @@ public class MainController {
 			alert.setContentText("Are you sure you want to add this song?");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
-				Song newSong = new Song(nameTextField.getText(),artistTextField.getText(),albumTextField.getText(),yearTextField.getText());
+				Song newSong = new Song(nameTextField.getText().trim(),artistTextField.getText().trim(),albumTextField.getText().trim(),yearTextField.getText().trim());
 				//check for duplicate and signal alert window
 				if(isDuplicate(newSong)){
 					Alert dup = new Alert(AlertType.ERROR);
